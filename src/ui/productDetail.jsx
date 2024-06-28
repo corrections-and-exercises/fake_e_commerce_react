@@ -2,7 +2,7 @@ export default function ProductDetail({ product, setCart }) {
   function increaseAmount() {
     setCart((prev) =>
       prev.map((p) =>
-        p.title === product.title ? { ...p, quantity: p.quantity++ } : p,
+        p.title === product.title ? { ...p, quantity: p.quantity + 1 } : p,
       ),
     );
   }
@@ -13,7 +13,7 @@ export default function ProductDetail({ product, setCart }) {
     } else {
       setCart((prev) =>
         prev.map((p) =>
-          p.title === product.title ? { ...p, quantity: p.quantity-- } : p,
+          p.title === product.title ? { ...p, quantity: p.quantity - 1 } : p,
         ),
       );
     }

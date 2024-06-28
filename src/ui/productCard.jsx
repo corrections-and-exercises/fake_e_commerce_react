@@ -22,13 +22,14 @@ export function ProductCard({ product }) {
 
   function getQuantity() {
     const productInCart = getProductInCart(product);
+    console.log("productInCart.quantity", productInCart.quantity);
     return productInCart.quantity;
   }
 
   function increaseAmount() {
     setCart((prev) =>
       prev.map((p) =>
-        p.title === product.title ? { ...p, quantity: p.quantity++ } : p,
+        p.title === product.title ? { ...p, quantity: p.quantity + 1 } : p,
       ),
     );
   }
@@ -40,7 +41,7 @@ export function ProductCard({ product }) {
     } else {
       setCart((prev) =>
         prev.map((p) =>
-          p.title === product.title ? { ...p, quantity: p.quantity-- } : p,
+          p.title === product.title ? { ...p, quantity: p.quantity - 1 } : p,
         ),
       );
     }
