@@ -2,10 +2,8 @@ import { useOutletContext } from "react-router-dom";
 
 export function ProductCard({ product }) {
   const { cart, setCart } = useOutletContext();
-  const stars = [];
-  for (let i = 0; i < Math.round(product.rating.rate); i++) {
-    stars.push("★");
-  }
+
+  const stars = new Array(Math.round(product.rating.rate)).fill("★");
 
   function getProductInCart() {
     return cart.find((p) => p.title === product.title);
