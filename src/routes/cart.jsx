@@ -30,6 +30,7 @@ export default function Cart() {
                       <ProductDetail
                         key={el.id}
                         product={el}
+                        cart={cart}
                         setCart={setCart}
                       />
                     );

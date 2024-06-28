@@ -1,23 +1,5 @@
-export default function ProductDetail({ product, setCart }) {
-  function increaseAmount() {
-    setCart((prev) =>
-      prev.map((p) =>
-        p.title === product.title ? { ...p, quantity: p.quantity + 1 } : p,
-      ),
-    );
-  }
-
-  function decreaseAmount() {
-    if (product.quantity === 1) {
-      setCart((prev) => prev.filter((p) => p.title !== product.title));
-    } else {
-      setCart((prev) =>
-        prev.map((p) =>
-          p.title === product.title ? { ...p, quantity: p.quantity - 1 } : p,
-        ),
-      );
-    }
-  }
+import { increaseAmount, decreaseAmount } from "../utils/cartUtils";
+export default function ProductDetail({ product, cart, setCart }) {
   return (
     <tr>
       <td>
@@ -36,11 +18,17 @@ export default function ProductDetail({ product, setCart }) {
       <td>{product.description}</td>
       <td>
         <div className="flex items-center gap-2">
-          <button className="btn btn-sm" onClick={decreaseAmount}>
+          <button
+            className="btn btn-sm"
+            onClick={() => decreaseAmount(setCart, cart, product)}
+          >
             -
           </button>
           <span>{product.quantity}</span>
-          <button className="btn btn-sm" onClick={increaseAmount}>
+          <button
+            className="btn btn-sm"
+            onClick={() => increaseAmount(setCart, product)}
+          >
             +
           </button>
         </div>
