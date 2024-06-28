@@ -1,15 +1,11 @@
 import { useOutletContext } from "react-router-dom";
-
+import { getProductInCart } from "../utils/cartUtils";
 export function ProductCard({ product }) {
   const { cart, setCart } = useOutletContext();
 
   const stars = new Array(Math.round(product.rating.rate)).fill("★");
 
-  function getProductInCart() {
-    return cart.find((p) => p.title === product.title);
-  }
-
-  const isAlreadyInCart = getProductInCart();
+  const isAlreadyInCart = getProductInCart(cart, product);
 
   function addToCart() {
     if (isAlreadyInCart) return;
@@ -19,7 +15,7 @@ export function ProductCard({ product }) {
   }
 
   function getQuantity() {
-    const productInCart = getProductInCart(product);
+    const productInCart = getProductInCart(cart, product);
     return productInCart.quantity;
   }
 
@@ -32,7 +28,7 @@ export function ProductCard({ product }) {
   }
 
   function decreaseAmount() {
-    const productInCart = getProductInCart();
+    const productInCart = getProductInCart(cart, product);
     if (productInCart.quantity === 1) {
       setCart((prev) => prev.filter((p) => p.title !== product.title));
     } else {

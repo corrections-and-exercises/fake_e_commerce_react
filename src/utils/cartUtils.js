@@ -6,3 +6,7 @@ export function getTotal(cart) {
   }, 0);
   return total.toFixed(2);
 }
+
+export function getProductInCart(cart, product) {
+  return cart.find((p) => p.title === product.title);
+}
