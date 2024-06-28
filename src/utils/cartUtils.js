@@ -42,3 +42,17 @@ export function decreaseAmount(updateCart, cart, product) {
     );
   }
 }
+
+export function changeAmount(updateCart, product, event) {
+  const newAmount = parseInt(event.target.value.slice(6));
+
+  if (newAmount === 0) {
+    updateCart((prev) => prev.filter((p) => p.title !== product.title));
+  } else {
+    updateCart((prev) =>
+      prev.map((p) =>
+        p.title === product.title ? { ...p, quantity: newAmount } : p,
+      ),
+    );
+  }
+}

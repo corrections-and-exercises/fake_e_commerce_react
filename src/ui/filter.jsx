@@ -7,11 +7,11 @@ export default function Filter({ filter, setFilter }) {
   ];
 
   return (
-    <div className="flex gap-4">
+    <div className="mb-4 mt-2 flex justify-center gap-4">
       {options.map((option) => {
         return (
           <button
-            className={`rounded border-2 border-purple-200 px-4 py-2 hover:bg-purple-200 active:bg-purple-300 ${filter === option ? "bg-orange-200 hover:bg-orange-200" : ""}`}
+            className={`bpx-4 rounded p-4 py-2 hover:bg-purple-200 active:bg-purple-300 ${filter === option ? "bg-orange-200 hover:bg-orange-200" : ""}`}
             key={option}
             onClick={() => setFilter(option)}
           >
