@@ -8,10 +8,10 @@ export default function ProductContainer() {
   const filteredProducts = filterProducts(products, filter);
 
   return (
-    <div className="flex w-[850px] flex-wrap gap-4">
+    <>
       {filteredProducts.map((product) => (
         <ProductCard key={product.id} product={product} />
       ))}
-    </div>
+    </>
   );
 }

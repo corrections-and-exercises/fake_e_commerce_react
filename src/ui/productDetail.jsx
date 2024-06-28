@@ -6,7 +6,11 @@ export default function ProductDetail({ product, cart, setCart }) {
         <div className="flex items-center gap-3">
           <div className="avatar">
             <div className="mask mask-squircle h-12 w-12">
-              <img src={product.image} alt={product.title} />
+              <img
+                className="object-scale-down"
+                src={product.image}
+                alt={product.title}
+              />
             </div>
           </div>
           <div>

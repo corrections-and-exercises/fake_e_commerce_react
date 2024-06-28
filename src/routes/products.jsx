@@ -21,7 +21,7 @@ export default function Products() {
   return (
     <>
       <Filter filter={filter} setFilter={setFilter} />
-      <div className="flex flex-wrap justify-center gap-4">
+      <div className="mx-auto flex max-w-[800px] flex-wrap justify-center gap-4">
         <Suspense fallback={<ProductSkeleton />}>
           <Await resolve={products}>
             <ProductContainer />
