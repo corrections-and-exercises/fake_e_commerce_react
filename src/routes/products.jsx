@@ -1,28 +1,32 @@
-import { useLoaderData, useOutletContext } from "react-router-dom";
+import {
+  useLoaderData,
+  useOutletContext,
+  Await,
+  defer,
+} from "react-router-dom";
 import { getProducts } from "../data/products";
-import { ProductCard } from "../ui/productCard";
 import Filter from "../ui/filter";
+import { Suspense } from "react";
+import ProductContainer from "../ui/productContainer";
+import ProductSkeleton from "../ui/productSkeleton";
 
 export async function loader() {
-  const products = await getProducts();
-  return products;
+  const products = getProducts();
+  return defer({ products });
 }
 export default function Products() {
-  const products = useLoaderData();
-
   const { filter, setFilter } = useOutletContext();
-
-  const filteredProducts = filter
-    ? products.filter((product) => product.category === filter)
-    : products;
+  const { products } = useLoaderData();
 
   return (
     <>
       <Filter filter={filter} setFilter={setFilter} />
       <div className="flex flex-wrap justify-center gap-4">
-        {filteredProducts.map((product) => {
-          return <ProductCard key={product.id} product={product} />;
-        })}
+        <Suspense fallback={<ProductSkeleton />}>
+          <Await resolve={products}>
+            <ProductContainer />
+          </Await>
+        </Suspense>
       </div>
     </>
   );

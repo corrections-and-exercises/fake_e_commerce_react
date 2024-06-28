@@ -1,6 +1,5 @@
 import { Outlet } from "react-router-dom";
 import Navbar from "../ui/navbar";
-import Filter from "../ui/filter";
 import { useState } from "react";
 
 export default function Root() {
