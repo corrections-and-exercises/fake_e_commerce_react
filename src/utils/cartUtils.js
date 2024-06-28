@@ -33,7 +33,7 @@ export function increaseAmount(updateCart, product) {
 export function decreaseAmount(updateCart, cart, product) {
   const productInCart = getProductInCart(cart, product);
   if (productInCart.quantity === 1) {
-    updateCart((prev) => prev.filter((p) => p.title !== product.title));
+    removeFromCart(updateCart, product);
   } else {
     updateCart((prev) =>
       prev.map((p) =>
@@ -45,14 +45,13 @@ export function decreaseAmount(updateCart, cart, product) {
 
 export function changeAmount(updateCart, product, event) {
   const newAmount = parseInt(event.target.value.slice(6));
+  updateCart((prev) =>
+    prev.map((p) =>
+      p.title === product.title ? { ...p, quantity: newAmount } : p,
+    ),
+  );
+}
 
-  if (newAmount === 0) {
-    updateCart((prev) => prev.filter((p) => p.title !== product.title));
-  } else {
-    updateCart((prev) =>
-      prev.map((p) =>
-        p.title === product.title ? { ...p, quantity: newAmount } : p,
-      ),
-    );
-  }
+export function removeFromCart(updateCart, product) {
+  updateCart((prev) => prev.filter((p) => p.title !== product.title));
 }

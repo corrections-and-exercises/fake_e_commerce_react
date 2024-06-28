@@ -6,13 +6,14 @@ import {
   getProductInCart,
   addToCart,
   getQuantity,
+  removeFromCart,
 } from "../utils/cartUtils";
 export function ProductCard({ product }) {
   const { cart, setCart } = useOutletContext();
 
   const stars = new Array(Math.round(product.rating.rate)).fill("★");
 
-  const quantities = new Array(20).fill("").map((el, index) => index);
+  const quantities = new Array(9).fill("").map((el, index) => index + 1);
 
   const inCart = getProductInCart(cart, product);
 
@@ -46,6 +47,12 @@ export function ProductCard({ product }) {
               <option>Menge: {el}</option>
             ))}
           </select>
+          <button
+            className="btn btn-secondary btn-xs"
+            onClick={() => removeFromCart(setCart, product)}
+          >
+            Remove
+          </button>
         </>
       )}
     </div>
