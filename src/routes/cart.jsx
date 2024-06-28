@@ -1,17 +1,10 @@
 import { useOutletContext } from "react-router-dom";
 import ProductDetail from "../ui/productDetail";
+import { getTotal } from "../utils/cartUtils";
 
 export default function Cart() {
   const { cart, setCart } = useOutletContext();
 
-  function getTotal() {
-    if (cart.length < 1) return;
-    const total = cart.reduce((acc, curr) => {
-      acc += curr.price * curr.quantity;
-      return acc;
-    }, 0);
-    return total.toFixed(2);
-  }
   return (
     <>
       <div>
@@ -47,7 +40,7 @@ export default function Cart() {
                     <th></th>
                     <th> </th>
                     <th>Total</th>
-                    <th>{getTotal()}</th>
+                    <th>{getTotal(cart)}</th>
                   </tr>
                 </tfoot>
               </table>

@@ -22,7 +22,6 @@ export function ProductCard({ product }) {
 
   function getQuantity() {
     const productInCart = getProductInCart(product);
-    console.log("productInCart.quantity", productInCart.quantity);
     return productInCart.quantity;
   }
 
