@@ -8,17 +8,19 @@ export default function Filter({ filter, setFilter }) {
 
   return (
     <div className="mb-4 mt-2 flex justify-center gap-4">
-      {options.map((option) => {
-        return (
-          <button
-            className={`bpx-4 rounded p-4 py-2 hover:bg-purple-200 active:bg-purple-300 ${filter === option ? "bg-orange-200 hover:bg-orange-200" : ""}`}
-            key={option}
-            onClick={() => setFilter(option)}
-          >
-            {option}
-          </button>
-        );
-      })}
+      <div className="join">
+        {options.map((option) => {
+          return (
+            <button
+              onClick={() => setFilter(option)}
+              key={option}
+              className={`btn join-item ${filter === option ? "btn-active" : ""}`}
+            >
+              {option}
+            </button>
+          );
+        })}
+      </div>
     </div>
   );
 }
