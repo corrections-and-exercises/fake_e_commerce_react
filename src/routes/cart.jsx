@@ -1,11 +1,8 @@
 import { useOutletContext } from "react-router-dom";
 import ProductDetail from "../ui/productDetail";
-import { useNavigation } from "react-router-dom";
 
 export default function Cart() {
   const { cart, setCart } = useOutletContext();
-
-  const navigation = useNavigation();
 
   function getTotal() {
     if (cart.length < 1) return;
@@ -17,7 +14,7 @@ export default function Cart() {
   }
   return (
     <>
-      <div className={navigation.state === "loading" ? "opacity-45" : ""}>
+      <div>
         {cart.length < 1 ? (
           <div className="mx-auto mt-2 w-4/5 rounded bg-purple-300 p-2">
             <p>Your cart is empty</p>
@@ -26,7 +23,6 @@ export default function Cart() {
           <>
             <div className="overflow-x-auto">
               <table className="table min-h-2.5">
-                {/* head */}
                 <thead>
                   <tr>
                     <th>Product</th>
@@ -46,7 +42,6 @@ export default function Cart() {
                     );
                   })}
                 </tbody>
-                {/* foot */}
                 <tfoot>
                   <tr>
                     <th></th>
