@@ -1,32 +1,17 @@
 import { useOutletContext } from "react-router-dom";
-import { getProductInCart, addToCart, getQuantity } from "../utils/cartUtils";
+import {
+  increaseAmount,
+  decreaseAmount,
+  getProductInCart,
+  addToCart,
+  getQuantity,
+} from "../utils/cartUtils";
 export function ProductCard({ product }) {
   const { cart, setCart } = useOutletContext();
 
   const stars = new Array(Math.round(product.rating.rate)).fill("★");
 
   const inCart = getProductInCart(cart, product);
-
-  function increaseAmount() {
-    setCart((prev) =>
-      prev.map((p) =>
-        p.title === product.title ? { ...p, quantity: p.quantity + 1 } : p,
-      ),
-    );
-  }
-
-  function decreaseAmount() {
-    const productInCart = getProductInCart(cart, product);
-    if (productInCart.quantity === 1) {
-      setCart((prev) => prev.filter((p) => p.title !== product.title));
-    } else {
-      setCart((prev) =>
-        prev.map((p) =>
-          p.title === product.title ? { ...p, quantity: p.quantity - 1 } : p,
-        ),
-      );
-    }
-  }
 
   return (
     <div className="flex w-1/3 flex-col items-center gap-2 p-4">
@@ -47,8 +32,10 @@ export function ProductCard({ product }) {
         <>
           <p>Amount: {getQuantity(cart, product)}</p>
           <div className="flex gap-2">
-            <button onClick={decreaseAmount}>-</button>
-            <button onClick={increaseAmount}>+</button>
+            <button onClick={() => decreaseAmount(setCart, cart, product)}>
+              -
+            </button>
+            <button onClick={() => increaseAmount(setCart, product)}>+</button>
           </div>
         </>
       )}

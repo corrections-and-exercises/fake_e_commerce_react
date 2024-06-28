@@ -21,3 +21,24 @@ export function getQuantity(cart, product) {
   const productInCart = getProductInCart(cart, product);
   return productInCart.quantity;
 }
+
+export function increaseAmount(updateCart, product) {
+  updateCart((prev) =>
+    prev.map((p) =>
+      p.title === product.title ? { ...p, quantity: p.quantity + 1 } : p,
+    ),
+  );
+}
+
+export function decreaseAmount(updateCart, cart, product) {
+  const productInCart = getProductInCart(cart, product);
+  if (productInCart.quantity === 1) {
+    updateCart((prev) => prev.filter((p) => p.title !== product.title));
+  } else {
+    updateCart((prev) =>
+      prev.map((p) =>
+        p.title === product.title ? { ...p, quantity: p.quantity - 1 } : p,
+      ),
+    );
+  }
+}
