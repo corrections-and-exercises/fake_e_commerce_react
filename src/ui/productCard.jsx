@@ -1,23 +1,11 @@
 import { useOutletContext } from "react-router-dom";
-import { getProductInCart } from "../utils/cartUtils";
+import { getProductInCart, addToCart, getQuantity } from "../utils/cartUtils";
 export function ProductCard({ product }) {
   const { cart, setCart } = useOutletContext();
 
   const stars = new Array(Math.round(product.rating.rate)).fill("★");
 
-  const isAlreadyInCart = getProductInCart(cart, product);
-
-  function addToCart() {
-    if (isAlreadyInCart) return;
-
-    const newProduct = { ...product, quantity: 1 };
-    setCart((prev) => [...prev, newProduct]);
-  }
-
-  function getQuantity() {
-    const productInCart = getProductInCart(cart, product);
-    return productInCart.quantity;
-  }
+  const inCart = getProductInCart(cart, product);
 
   function increaseAmount() {
     setCart((prev) =>
@@ -46,18 +34,18 @@ export function ProductCard({ product }) {
       <p className="text-sm">{product.title}</p>
       <p>{product.price} €</p>
       <p className="text-yellow-400">{...stars}</p>
-      {!isAlreadyInCart ? (
+      {!inCart ? (
         <button
           className="rounded bg-blue-300 p-4"
           onClick={() => {
-            addToCart(product);
+            addToCart(inCart, setCart, product);
           }}
         >
           Add to Cart
         </button>
       ) : (
         <>
-          <p>Amount: {getQuantity(product)}</p>
+          <p>Amount: {getQuantity(cart, product)}</p>
           <div className="flex gap-2">
             <button onClick={decreaseAmount}>-</button>
             <button onClick={increaseAmount}>+</button>
